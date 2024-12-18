@@ -1,0 +1,9 @@
+p, any, /swagger/*, GET
+g, authorized, any
+g, unauthorized, any
+g, admin, any
+
+p, unauthorized, /api/auth/sendcode/, POST
+p, unauthorized, /api/auth/registr/, POST
+p, authorized, /api/auth/profile/, PUT
+p, admin, /api/v1/admin/xozmak, POST
