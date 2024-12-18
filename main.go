@@ -7,7 +7,6 @@ import (
 	"delivery/handlers"
 	"delivery/logger"
 	"delivery/routers"
-	"delivery/storage"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -32,11 +31,8 @@ func main() {
 	log := logger.NewLogger(cfg.AppName, cfg.LogLevel)
 	defer logger.Cleanup(log)
 
-	//storage init
-	strg := storage.New(cfg)
-
 	//controllers init
-	admincontroller := admincontroller.NewAdminController(log, strg)
+	admincontroller := admincontroller.NewAdminController(log)
 
 	//handlers init
 	h := handlers.New(

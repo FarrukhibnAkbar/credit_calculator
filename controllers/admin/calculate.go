@@ -5,7 +5,6 @@ import (
 	"delivery/configs"
 	"delivery/entities"
 	"delivery/logger"
-	"delivery/storage"
 	"math"
 	"time"
 )
@@ -15,16 +14,14 @@ type AdminController interface {
 }
 
 type adminController struct {
-	log     logger.LoggerI
-	storage storage.Storage
-	cfg     *configs.Configuration
+	log logger.LoggerI
+	cfg *configs.Configuration
 }
 
-func NewAdminController(log logger.LoggerI, storage storage.Storage) AdminController {
+func NewAdminController(log logger.LoggerI) AdminController {
 	return adminController{
-		log:     log,
-		storage: storage,
-		cfg:     configs.Config(),
+		log: log,
+		cfg: configs.Config(),
 	}
 }
 
@@ -64,10 +61,10 @@ func (a adminController) CalculateCredit(ctx context.Context, req entities.Calcu
 		payments = append(payments, entities.Payment{
 			Number:        i,
 			Date:          paymentDate,
-			Principal:     math.Round(principalPayment*100)/100,
-			Interest:      math.Round(interest*100)/100,
-			TotalPayment:  math.Round(payment*100)/100,
-			RemainingDebt: math.Round(remainingDebt*100)/100,
+			Principal:     math.Round(principalPayment*100) / 100,
+			Interest:      math.Round(interest*100) / 100,
+			TotalPayment:  math.Round(payment*100) / 100,
+			RemainingDebt: math.Round(remainingDebt*100) / 100,
 		})
 
 		totalPayment += payment
